@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { interval, Subject } from 'rxjs';
 import { takeUntil } from "rxjs/operators";
 import './App.css';
@@ -7,7 +7,7 @@ import './App.css';
 const App: React.FC = () => {
   const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
-  const [status, setStatus] = useState('not-ticking');
+    const [isWaitClicked, setIsWaitClicked] = useState(false);
 
   useEffect(() => {
     const unsub = new Subject();
@@ -26,33 +26,40 @@ const App: React.FC = () => {
     };
   }, [timerOn]);
 
-  const handleStart = () => {
+  const handleStart = useCallback(() => {
     setTimerOn(prevTimerState => !prevTimerState);
-    setStatus('ticking');
-  }
+  }, [])
 
-  const handleStop = () => {
+
+  const handleStop = useCallback(() => {
     setTime(0);
     setTimerOn(false);
-    setStatus('not-ticking');
-  }
+  }, []);
 
-  const handleReset = () => {
-    if (timerOn && status === 'ticking') {
-      handleStop();
-      handleStart();
+  const handleReset = useCallback(() => {
+    handleStop();
+    handleStart();
+  }, [handleStart, handleStop]);
+
+  const handleWait = useCallback(() => {
+    if (isWaitClicked) {
+      setTimerOn(false);
+    } else if (!isWaitClicked) {
+      setIsWaitClicked(true);
+      setTimeout(() => setIsWaitClicked(false), 300);
     }
-  }
+  }, [isWaitClicked]);
+
 
   const oneSec = time / 1000;
 
-  const formatTime = (durationInSeconds: number) => {
+  const formatTime = useCallback((durationInSeconds: number) => {
     const hours = Math.floor(durationInSeconds / 3600);
     const minutes = Math.floor((durationInSeconds % 3600) / 60);
     const seconds = durationInSeconds - hours * 3600 - minutes * 60;
 
     return `${hours}h ${minutes}m ${seconds}s`;
-  }
+  }, []);
 
   return (
     <div className="App">
@@ -62,7 +69,7 @@ const App: React.FC = () => {
         {formatTime(oneSec)}
       </span>
       <div>
-        {status === 'not-ticking' && (
+        {!timerOn && (
           <button
             type="button"
             onClick={handleStart}
@@ -71,7 +78,7 @@ const App: React.FC = () => {
             Start
           </button>
         )}
-        {status === 'ticking' && (
+        {timerOn && (
           <button
             type="button"
             onClick={handleStop}
@@ -82,12 +89,20 @@ const App: React.FC = () => {
         )}
         <button
           type="button"
+          className="Button"
+          onClick={handleWait}
+        >
+          Wait
+        </button>
+        <button
+          type="button"
           onClick={handleReset}
           className="Button"
         >
           Reset
         </button>
       </div>
+      <p>Status: {timerOn ? 'ON' : 'OFF'}</p>
     </div>
   );
 }
