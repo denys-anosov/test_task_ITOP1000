@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/test_task_ITOP1000/static/css/main.c5dfe376.chunk.css",
+    "main.js": "/test_task_ITOP1000/static/js/main.5c714931.chunk.js",
+    "main.js.map": "/test_task_ITOP1000/static/js/main.5c714931.chunk.js.map",
+    "runtime-main.js": "/test_task_ITOP1000/static/js/runtime-main.7ba7a170.js",
+    "runtime-main.js.map": "/test_task_ITOP1000/static/js/runtime-main.7ba7a170.js.map",
+    "static/js/2.76e7612c.chunk.js": "/test_task_ITOP1000/static/js/2.76e7612c.chunk.js",
+    "static/js/2.76e7612c.chunk.js.map": "/test_task_ITOP1000/static/js/2.76e7612c.chunk.js.map",
+    "index.html": "/test_task_ITOP1000/index.html",
+    "static/css/main.c5dfe376.chunk.css.map": "/test_task_ITOP1000/static/css/main.c5dfe376.chunk.css.map",
+    "static/js/2.76e7612c.chunk.js.LICENSE.txt": "/test_task_ITOP1000/static/js/2.76e7612c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7ba7a170.js",
+    "static/js/2.76e7612c.chunk.js",
+    "static/css/main.c5dfe376.chunk.css",
+    "static/js/main.5c714931.chunk.js"
+  ]
+}
