@@ -7,7 +7,7 @@ import './App.css';
 const App: React.FC = () => {
   const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
-    const [isWaitClicked, setIsWaitClicked] = useState(false);
+  const [isWaitClicked, setIsWaitClicked] = useState(false);
 
   useEffect(() => {
     const unsub = new Subject();
